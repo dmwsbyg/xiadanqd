@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script language="JavaScript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<style>
+    .dr{
+        display: inline-block;
+        padding-top: 10px;
+    }
+</style>
+
+<body>
+    <div style=" width: 100%;padding-left: 45%; padding-top: 30px; ">
+        <div><span style="font-size: 20px;">用户注册</span></div>
+        <div >
+            <div class="dr">用户名:</div>
+            <div class="dr">
+                <input id="name" type="text" placeholder="用户名" name="name">
+            </div>
+        </div>
+        <div >
+            <div class="dr">年   龄:</div>
+            <div class="dr">
+                <input id="age" type="text" placeholder="年龄" name="age">
+            </div>
+        </div>
+        <div >
+            <div class="dr">手机号:</div>
+            <div class="dr">
+                <input id="telephone" type="text" placeholder="手机号" name="telephone">
+            </div>
+        </div>
+        <div >
+            <div class="dr">密   码:</div>
+            <div class="dr">
+                <input id="password" type="password" placeholder="密码" name="password">
+            </div>
+        </div>
+        <div >
+            <div class="dr"><button onclick="tj()" style="background: rgb(53, 170, 71); border: 0px; width: 100px; height: 40px;"><span style="color: white;font-size: 20px;">提交</span></button></div>
+        </div>
+    </div>
+</body>
+
+<script type="application/javascript">
+    function tj(){
+        var name = $('#name').val(); 
+        var age = $('#age').val(); 
+        var telephone = $('#telephone').val(); 
+        var password = $('#password').val(); 
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8080/user/register",
+            data: {
+                name:name,
+                age:age,
+                telephone:telephone,
+                password:password
+            },
+            success:function(data){
+                alert("注册成功")
+            }
+        })
+    }
+</script>
+</html>
