@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script language="JavaScript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div style="padding-left: 40%;">
+        <h3>商品详情</h3>
+       
+        <div>
+            
+            <div>
+                <label id="productName"></label>
+            </div>
+        </div>
+        <div style="padding-top: 10px;">
+            <label>商品描述</label>
+            <div>
+                <label id="bewrite"></label>
+            </div>
+        </div>
+        <div style="padding-top: 10px;">
+            <label>价格</label>
+            <div >
+                <label id="price"></label>
+            </div>
+        </div>
+        
+        <div >
+            <div >
+                <img style="width: 200px;height: auto" id="img">
+            </div>
+        </div>
+        <div style="padding-top: 10px;">
+            <label >库存</label>
+            <div >
+                <label id="stock"></label>
+            </div>
+        </div>
+        <div style="padding-top: 10px;">
+            <label >销量</label>
+            <div >
+                <label id="sales"></label>
+            </div>
+        </div>
+        <div style="padding-top: 10px;">
+            <button style="background-color: rgb(236, 84, 84);border: 0px;" type="submit" onclick="xd()">下单</button>
+        </div>
+    </div>
+</body>
+<script  type="application/javascript">
+    window.onload = function(){
+        var loc = location.href;
+        var n1 = loc.length;
+        var n2 = loc.indexOf("=");
+        var id = decodeURI(loc.substr(n2+1,n1-n2));
+        console.log(id)
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8080/commodity/itemById",
+            data:{
+                id:id
+            },
+            success:function(data){
+                // if(data != null){
+                    console.log(data);
+                    console.log(data.productName)
+                    $("#productName").text(data.productName)
+                    $("#bewrite").text(data.bewrite);
+                    $("#stock").text(data.stock);
+                    $("#price").text(data.price);
+                    $("#img").attr("src",data.img);
+                    $("#sales").text(data.sales);
+                // }
+            }
+        })
+    }
+</script>
+</html>

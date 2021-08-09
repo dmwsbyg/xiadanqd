@@ -10,16 +10,49 @@
 <body>
     <div>
         <div>商品列表</div>
-        <div></div>
+        <div><table id="item"></table></div>
     </div>
 </body>
 <script type="application/javascript">
 
+    var item = [];
     window.onload = function(){
         
         $.ajax({
-            
+            type: "GET",
+            url: "http://127.0.0.1:8080/commodity/item",
+            success:function(data){
+                items = data;
+                var bodyhtml;
+                for(var i=0;i<items.length;i++){
+                    var item = items[i];
+                    bodyhtml = bodyhtml +
+                    `<tr onclick = "X(${item.id})">
+                        <td>${item.productName}</td>
+                        <td><img src="${item.img}" style="width:100px;heigh:100px"></td>
+                        <td>${item.bewrite}</td>
+                        <td>${item.price}</td>
+                        <td>${item.stock}</td>
+                        <td>${item.sales}</td>
+                    </tr>`
+                }
+                var headHtml = 
+                `<tr>
+                    <th>商品名</th>
+                    <th>商品图片</th>
+                    <th>商品描述</th>
+                    <th>商品价格</th>
+                    <th>商品库存</th>
+                    <th>商品销量</th>
+                </tr>`
+                $("#item").html(headHtml + bodyhtml);
+            }
         })
+    }
+
+    function X(itemId){
+        var id = itemId;
+        window.location = "SPXQ.html?"+"id="+encodeURI(id)
     }
 </script>
 </html>
