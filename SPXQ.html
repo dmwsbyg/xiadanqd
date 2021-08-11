@@ -53,12 +53,15 @@
     </div>
 </body>
 <script  type="application/javascript">
+
+    var loc = location.href;
+    var n1 = loc.length;
+    var n2 = loc.indexOf("=");
+    var id = decodeURI(loc.substr(n2+1,n1-n2));
+    console.log(id)
+
     window.onload = function(){
-        var loc = location.href;
-        var n1 = loc.length;
-        var n2 = loc.indexOf("=");
-        var id = decodeURI(loc.substr(n2+1,n1-n2));
-        console.log(id)
+        
         $.ajax({
             type: "POST",
             url: "http://127.0.0.1:8080/commodity/itemById",
@@ -76,6 +79,31 @@
                     $("#img").attr("src",data.img);
                     $("#sales").text(data.sales);
                 // }
+            }
+        })
+    }
+
+    function xd(){
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8080/order/order",
+            data: {
+                commodityId: id,
+                amount: 1
+            },
+            xhrFields: {
+                      withCredentials: true
+                    //   得知with-credentials是用来设置是否支持发送cookie凭证信息的字段
+              },
+            crossDomain: true,
+            success:function(data){
+                if(data == "下单成功"){
+                    alert("下单成功")
+                }
+                else if(data == "用户未登入"){
+                    alert("用户未登入")
+                    window.location = "DR.html"
+                }
             }
         })
     }
